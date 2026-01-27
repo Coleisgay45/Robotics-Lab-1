@@ -1,0 +1,56 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.023716020401088774 0.9996278300195294 0.013481536514133769 1.22996147971138
+  position -0.5510287904855241 0.09886476394899349 1.682072226093572
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+}
+E-puck {
+  hidden position_0_0 -3.095566444602319e-08
+  hidden position_0_1 -3.095567446820269e-08
+  hidden rotation_1 0 1 0 3.3103123234086493
+  hidden rotation_2 0 1 0 3.1495947540287634
+  translation 0.3746054593894921 0.436350921848384 -6.396233637045133e-05
+  rotation -4.409279678925964e-05 -0.001561678018824689 -0.9999987796080507 0.05641111516773221
+  controller "lab1"
+}
+Solid {
+  translation 1.047469390320464e-07 -0.4003811323255536 0.049610495021465265
+  rotation -0.9999996742042481 -0.00033036859245637096 0.0007365106861279993 0.0015590895490674727
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.666667 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.15 0.2 0.1
+      }
+    }
+  ]
+  boundingObject Box {
+    size 0.15 0.2 0.1
+  }
+  physics Physics {
+    mass 1
+  }
+  linearVelocity 3.0415546391007745e-09 1.965935800919284e-05 -1.4927026603572806e-07
+  angularVelocity 7.97071561564864e-05 6.682438995540953e-08 -2.7579779177614112e-08
+}
+PointLight {
+  attenuation 0 0 1
+  location -0.3 0.3 0
+}
