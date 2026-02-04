@@ -34,10 +34,9 @@ ground_sensors = [
     robot.getDevice('gs1'), 
     robot.getDevice('gs2')
 ]
+
 for gs in ground_sensors:
     gs.enable(timestep)
-
-
 
 
 # Main loop:
@@ -45,14 +44,11 @@ for gs in ground_sensors:
 while robot.step(timestep) != -1:
     # Read the sensors:
     gs_values = [gs.getValue() for gs in ground_sensors] 
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
-    
     
     if state == "speed_measurement":
         left_motor.setVelocity(MAX_SPEED)
         right_motor.setVelocity(MAX_SPEED)
-        if gs_values[1] < 1:
+        if gs_values[0] < 700 and gs_values[2] < 700: # Left and Right Sensors
             left_motor.setVelocity(0)
             right_motor.setVelocity(0)
         
@@ -60,6 +56,7 @@ while robot.step(timestep) != -1:
 
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
+    
     pass
 
 # Enter here exit cleanup code.
