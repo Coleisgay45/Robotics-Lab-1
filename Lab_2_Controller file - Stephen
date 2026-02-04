@@ -38,7 +38,8 @@ ground_sensors = [
 for gs in ground_sensors:
     gs.enable(timestep)
 
-
+elapsed_time = None
+EPUCK_MAX_WHEEL_SPEED = None
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
@@ -49,9 +50,15 @@ while robot.step(timestep) != -1:
         left_motor.setVelocity(MAX_SPEED)
         right_motor.setVelocity(MAX_SPEED)
         if gs_values[0] < 700 and gs_values[2] < 700: # Left and Right Sensors
-            left_motor.setVelocity(0)
-            right_motor.setVelocity(0)
-        
+            state = "line_follower"
+            elapsed_time = robot.getTime()
+
+ 
+    elif state == "line_follower":
+        print(elapsed_time)
+        left_motor.setVelocity(0)
+        right_motor.setVelocity(0)
+     
     # Process sensor data here.
 
     # Enter here functions to send actuator commands, like:
