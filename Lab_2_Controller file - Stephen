@@ -39,7 +39,8 @@ for gs in ground_sensors:
     gs.enable(timestep)
 
 elapsed_time = None
-EPUCK_MAX_WHEEL_SPEED = None
+EPUCK_MAX_WHEEL_SPEED = 0.129 #(20.5 *  MAX_SPEED)/1000 = 0.129
+
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
@@ -58,7 +59,27 @@ while robot.step(timestep) != -1:
         print(elapsed_time)
         left_motor.setVelocity(0)
         right_motor.setVelocity(0)
-     
+        
+        # start line
+        if gs_values[0] < 700 and gs_values[1] < 700 and gs_values[2] < 700:
+            left_motor.setVelocity(MAX_SPEED)
+            right_motor.setVelocity(MAX_SPEED)
+        
+        elif gs_values[1] < 700: # Center sensor  # Detects black line
+        # while detect black line go forwards
+            left_motor.setVelocity(MAX_SPEED)
+            right_motor.setVelocity(MAX_SPEED)
+            
+            if gs_values[0] < 700: 
+            # if left sensor detects line, rotate to the left
+                left_motor.setVelocity(-MAX_SPEED)
+                right_motor.setVelocity(MAX_SPEED)  
+                  
+            if gs_values[2] < 700:
+            # if right sensor detects line, rotate to the left
+                left_motor.setVelocity(MAX_SPEED)
+                right_motor.setVelocity(-MAX_SPEED)  
+         
     # Process sensor data here.
 
     # Enter here functions to send actuator commands, like:
