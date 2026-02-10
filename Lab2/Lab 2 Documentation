@@ -1,0 +1,8 @@
+1. Made by Cole Irish, Vijay Khatri, and Stephen Le
+2. During the robot.step(TIME_STEP) statement, the robot will read the current state, then will either move forward until the start line or move in the direction of the follow line. The robot will check each time step to see if it needs to turn, using the side sensors. 
+3. If the time step varies slightly, the robot will slowly drift away from the line, deviating from the ideal trajectory. 
+4. The ePuck’s average speed is 0.129m/s.
+5. In an ideal world, the ePuck’s pose should show the ePuck’s position at 0 in x, and y, with no rotation. It should ideally end at this position as well. 
+6. We made a hard reset of the ePuck once the robot reached the starting position for a second time. 
+7. We spent roughly 5-6 hours on this lab. 
+8. Our implementation ran into issues with the turning detection. We found that our turning was not precise enough to turn smoothly, getting stuck on the corners. Once we calibrated the detection, we found much more success with the lab. 
