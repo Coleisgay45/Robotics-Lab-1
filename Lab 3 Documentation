@@ -1,0 +1,15 @@
+Part 1:
+
+
+Starting with the forward kinematics equations: 𝑥𝑅̇ = r/2 * (angular velocity of r + angular velocity of l)
+	And 𝜃 ̇ = r/d * (angular velocity of r - angular velocity of l)
+We can simplify these equations to (r * angular velocity of l) / 2 + (r * angular velocity of r)/2
+Then we can solve for angular velocity to get:
+	angular velocity of l = 1/r * (𝑥𝑅̇  - (d * 𝜃 ̇ )/2) and angular velocity of r = 1/r * (𝑥𝑅̇  - (d * 𝜃 ̇ )/2)
+
+
+
+
+Part 2.
+Position Error 0.155370?
+Bearing and Heading Error 1.539652?
