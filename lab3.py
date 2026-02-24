@@ -133,7 +133,16 @@ while robot.step(SIM_TIMESTEP) != -1:
             index = (index + 1)% len(waypoints)
         
     elif state == "proportional_controller":
+        #constants
+        k_rho = 1.0; # forward gain 
+        k_alpha = 2.0; # heading gain 
+        k_eta = -1.0;
+        wheelBase = 0.3; # meters between wheels
+        
         xR_dot = k_rho * rho
+        thetaR_dot = k_alpha * alpha + k_eta * eta
+        vL = XR_dot - (wheelBase / 2) * thetaR_dot
+        vR = vXR_dot + (wheelBase / 2) * thetaR_dot 
         
     
     print(position_error, bearing_error, heading_error)
