@@ -47,6 +47,9 @@ compass = robot.getDevice("compass")
 compass.enable(SIM_TIMESTEP)
 
 # TODO: Find waypoints to navigate around the arena while avoiding obstacles
+
+# (Add some more waypoints, this is jutt one I chose out) - Stephen
+
 waypoints = [[-0.064705, -0.414838, 0.0199956]]
 # Index indicating which waypoint the robot is reaching next
 index = 0
@@ -55,6 +58,15 @@ index = 0
 marker = robot.getFromDef("marker").getField("translation")
 
 state = 'turn_drive_turn_control'
+
+rho_thresh = 0.03 # metrics are in meters
+angle_thresh = 0.08 # radians
+
+
+# this will be used for the proportional controller state
+k_rho = 2
+k_alpha = 6
+k_eta = 2
 
 # Main Control Loop:
 while robot.step(SIM_TIMESTEP) != -1:
@@ -80,7 +92,49 @@ while robot.step(SIM_TIMESTEP) != -1:
     position_error = np.sqrt((xg - xr)**2+(yg - yr)**2)
     bearing_error = np.atan2(yg - yr, xg - xr) - theta
     heading_error = thetag - theta
+    # ________________________________________________________________________________________
+    # Everything above this line is what we did in class and I fixed up some hard coded stuff
     
+    # Same thing as above just as greek symbols
+    rho = np.sqrt((xg - xr)**2+(yg - yr)**2)
+    alpha = np.atan2(yg - yr, xg - xr) - theta
+    eta = thetag - theta
+    
+    # Velocities of left and right
+    vL = 0
+    vR = 0
+    
+    #turn_drive_turn_control state
+    if state == "turn_drive_turn_control":
+        if(abs(alpha) > angle_thresh and rho > rho_thresh):
+            w = 2 * alpha
+            vL = -w
+            vR = w
+            
+            
+            # This code moves the robot to the waypoint
+            
+        elif rho > rho_thresh:
+            v = 3
+            vL = v
+            vR = v
+            
+            # if you guys are confused the thresh is just like
+            # okay its close enough to this error so it will just still
+            # work, so its close enough to still be solved.
+            
+        elif abs(eta) > angle_thresh:
+            w = 2 * eta
+            vL = -w
+            vR = w
+        else:
+            vL = 0
+            vR = 0
+            index = (index + 1)% len(waypoints)
+        
+    elif state == "proportional_controller":
+        xR_dot = k_rho * rho
+        
     
     print(position_error, bearing_error, heading_error)
     print("Current pose: [%5f, %5f, %5f]" % (xr, yr, theta))
