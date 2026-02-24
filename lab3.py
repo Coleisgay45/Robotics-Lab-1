@@ -75,9 +75,12 @@ while robot.step(SIM_TIMESTEP) != -1:
     yr = pose_y
     theta = pose_theta
     
-    position_error = np.sqrt((xr - waypoints[index][0])**2+(yr - waypoints[index][1])**2)
-    bearing_error = np.atan2((waypoints[index][0]-yr),(waypoints[index][1]-xr))-theta
-    heading_error = theta - waypoints[index][2]
+    xg, yg, thetag = waypoints[index]
+    
+    position_error = np.sqrt((xg - xr)**2+(yg - yr)**2)
+    bearing_error = np.atan2(yg - yr, xg - xr) - theta
+    heading_error = thetag - theta
+    
     
     print(position_error, bearing_error, heading_error)
     print("Current pose: [%5f, %5f, %5f]" % (xr, yr, theta))
