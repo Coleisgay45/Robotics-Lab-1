@@ -102,6 +102,11 @@ while robot.step(SIM_TIMESTEP) != -1:
     # Come up with a way to transform the robot pose (in map coordinates)
     # into discrete locations on the display. Draw a red dot using display.drawPixel()
     # where the robot moves.
+    display.setColor(0xFF0000)
+    drawn_x = pose_x * 300
+    drawn_y = pose_y * 300
+    display.drawPixel(drawn_x, drawn_y)
+
 
     # TODO Part 3: Convert Lidar data into world coordinates
     # For each LiDAR ray, if the distance measurement is less than the maximum range:
