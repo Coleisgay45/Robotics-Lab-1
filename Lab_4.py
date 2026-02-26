@@ -69,9 +69,11 @@ lidar_sensor_readings = []
 
 lidar_ray_angles = []
 
-for i in range(NUM_LIDAR_RAYS):
-    angle = np.linspace(-LIDAR_ANGLE_RANGE/2, LIDAR_ANGLE_RANGE/2, num=NUM_LIDAR_RAYS)
-    lidar_ray_angles.append(angle)
+lidar_ray_angles = np.linspace(
+ -LIDAR_ANGLE_RANGE/2, 
+ LIDAR_ANGLE_RANGE/2, 
+ NUM_LIDAR_RAYS 
+ )
 
 #### End of Part 1 #####
 
@@ -105,7 +107,7 @@ while robot.step(SIM_TIMESTEP) != -1:
     display.setColor(0xFF0000)
     drawn_x = pose_x * 300
     drawn_y = pose_y * 300
-    display.drawPixel(drawn_x, drawn_y)
+    display.drawPixel(int(drawn_x), int(drawn_y))
 
 
     # TODO Part 3: Convert Lidar data into world coordinates
@@ -114,11 +116,18 @@ while robot.step(SIM_TIMESTEP) != -1:
     #       - lidar_sensor_readings stores the distance measurements of each LiDAR ray (rhos).
     #       - lidar_ray_angles should store the angles of each LiDAR ray (alphas).
     #       - Please also refer to the instruction document to see how the LiDAR rays are oriented in the robot's frame.
-    #   2. use the homogeneous transformation matrix to convert the object's coordinates from the robot's frame to the map coordinates.
+    for rho, alpha in zip(lidar_sensor_readings, lidar_ray_angles):
+        if rho < LIDAR_SENSOR_MAX_RANGE: 
+            rx = rho * math.cos(alpha) 
+            ry = rho * math.sin(alpha)     
+    
+    #   2. use the homogeneous transformation matri x to convert the object's coordinates from the robot's frame to the map coordinates.
     #       - The map coordinate system has its origin (0,0) at the top-left corner of the arena,
     #         and its x-axis increases to the right, and its y-axis increases downward.
     #       - In the robot frame, forward motion aligns with the +x-axis, and left corresponds to the +y-axis.
     #       - Please also refer to the instructions document to see how the robot's pose is defined in the map coordinate system.
+            mx = pose_x + rx * math.cos(pose_theta) - ry * math.sin(pose_theta) 
+            my = pose_y - rx * math.sin(pose_theta) - ry * math.cos(pose_theta)
 
     # TODO Part 4: Draw the obstacle, the robot's path, and free spaces on the map
     # Draw the occupied pixel in blue.
